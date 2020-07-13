@@ -1,0 +1,23 @@
+<!--Pulls the bse.html from the templates file -->
+{% extends 'courtinfractions/base.html' %}
+
+<!--Overrides the content block from base.html and allows the data for this specific page to be updated-->
+{% block content %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadatea">
+            <h2><a class="article-title" href="{% url 'CI-member' object.name %}">{{ object.name }}</a></h2>
+            <p><a class="article-content" href="{% url 'CI-record' object.id %}">{{ object.infraction }}</a></p>
+          <!-- Sets it so the only people who can update or delete posts is the user who created the post -->
+          {% if object.author == user %}
+             <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'CI-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'CI-delete' object.id %}">Delete</a>
+             </div>
+          {% endif %}
+        </div>
+          <p class="article-content">{{ object.date }} at {{ object.courtTime }}</p>
+          <p class="article-content">{{ object.notes }}</p>
+      </div>
+    </article>
+{% endblock content %}

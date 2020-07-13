@@ -1,0 +1,51 @@
+<!--Pulls the bse.html from the templates file -->
+{% extends 'memberexperience/base.html' %}
+
+<!--Overrides the content block from base.html and allows the data for this specific page to be updated-->
+{% block content %}
+    <h2>Member Records</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Join Date</th>
+                <th scope="col">3 Month Follow-Up</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for object in objects %}
+        <tr>
+            <th scope="row">{{ object.id }}</th>
+            <td><a class="article-content" href="{% url 'ME-record' object.id %}">{{ object.name }}</a></td>
+            <td>{{ object.joinDate }}</td>
+            <td>{{ object.followUp1 }}</td>
+
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous  %}
+                <a class = "btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class = "btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class = "btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next  %}
+                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+        </div>
+{% endblock content %}
