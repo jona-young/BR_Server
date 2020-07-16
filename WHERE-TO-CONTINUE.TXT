@@ -13,7 +13,9 @@ TODO Court Infractions Application
 3) Add Date Range filter in Email Automation
 TODO Member Experience Application
 1) Add Search Bar for Member
-2) Create Query to pull sport preferences from many-to-many relationship in multipleselect checkbox UpdateView
+
+TODO SECURITY
+1) Add CSRF token to all forms
 
 TODO
 1)  On actual server-implementation will have to remove the register account feature because no one

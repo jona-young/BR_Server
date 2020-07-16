@@ -3,10 +3,11 @@ from django.forms import ModelForm
 from .models import memberRecord, sportOptions
 
 class createForm(ModelForm):
-    sportPreference = forms.ModelMultipleChoiceField(
-        queryset=sportOptions.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
+    sportPrefs = forms.ModelMultipleChoiceField(
+                label='Sport Preferences',
+                queryset=sportOptions.objects.filter(),
+                widget=forms.CheckboxSelectMultiple
+            )
 
     class Meta:
         model = memberRecord
@@ -14,9 +15,16 @@ class createForm(ModelForm):
             'name',
             'age',
             'joinDate',
-            'sportPreference',
+            'sportPrefs',
             'followUp1',
             'followUp2',
             'followUp3',
             'notes'
         ]
+        labels = {
+            'followUp1': 'Follow Up Date (3 Months)',
+            'followUp2': 'Follow Up Date (6 Months)',
+            'followUp3': 'Follow Up Date (1 Year)'
+        }
+
+

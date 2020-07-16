@@ -1,6 +1,8 @@
 from .models import courtInf, contactInfo
 from django.core.mail import send_mail
 
+#TODO - adjust email var in each sendmail() to infInfo and contactInfo email...
+
 staffList = [
     'eric@thebandr.com',
     'catherine@thebandr.com',
@@ -100,9 +102,42 @@ def emailAutomation(list):
                 fail_silently=False
             )
         elif infInfo.infraction == 'NS1' and infCount >= 3:
+            body = """
+                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                Hello {name},
+
+                Our records indicate that you did not show for your court reservation on {date} at {time}.
+
+                    As this is your third occurrence, this court booking No-Show will be reviewed by our Director of Athletics. Further
+                    infractions will be reviewed by our Sports and Activity Committee, leading to potential suspension of booking
+                    privileges.  Please note, you will notice a charge of $25 on your account.
+
+                    This is just a friendly reminder of our rules :
+
+                        No shows or late cancellations within 8am the day of game time:  
+                        a) the booking Member should contact the Pro Shop to get help finding other players 
+                        prior to 24 hours of game time; and 
+                        b) if no one signs up to the join the court prior to 24 hours of game time then the BOOKIING
+                        MEMBER should cancel the court booking; and
+                        c) if the court is left unused without a 24 hour cancellation, then a $25 charge will be applied 
+                        to the BOOKING MEMBER
+
+                This is all in an effort to provide fair and equitable access to our tennis courts for all our Members.
+
+                Thank you for your understanding,
+
+                Jonathan Young | Sports Administrator
+                The Badminton and Racquet Club of Toronto
+                25 St. Clair Avenue West, Toronto ON M4V 1K6
+                E jonathan@thebandr.com W thebandr.com
+
+                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show (Over 2 Offenses)',
-                message='test',
+                message=body,
                 from_email=None,
                 #TODO Place 'staffList' under recipientlist
                 recipient_list=email,
@@ -182,9 +217,38 @@ def emailAutomation(list):
                 fail_silently=False
             )
         elif infInfo.infraction == 'LC1' and infCount >= 3:
+            body = """
+                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                Hello {name},
+
+                Our records indicate that you cancelled your court reservation on {date} at {time}.
+
+                As this is your third occurrence, this court booking Late Cancel will be reviewed by our Director of Athletics.
+                Further infractions will be reviewed by our Sports and Activity Committee, leading to potential suspension of
+                booking privileges. You will notice a charge of $10 on your account.
+
+                This is just a friendly reminder of our rules :
+
+                    15.5 The Pro Shop must be informed of court cancellations before 8am of the game day or    
+                    a $10.00 fee will be applied to the accounts of ALL MEMBERS and Associates who were 
+                    booked for play
+
+                This is all in an effort to provide fair and equitable access to our tennis courts for all our Members.
+
+                Thank you for your understanding,
+
+                Jonathan Young | Sports Administrator
+                The Badminton and Racquet Club of Toronto
+                25 St. Clair Avenue West, Toronto ON M4V 1K6
+                E jonathan@thebandr.com W thebandr.com
+
+                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel (Over 2 Offenses)',
-                message='test',
+                message=body,
                 from_email=None,
                 #TODO Place 'staffList' under recipientlist
                 recipient_list=email,
@@ -228,7 +292,7 @@ def emailAutomation(list):
                 recipient_list=email,
                 fail_silently=False
             )
-        elif infInfo.infraction == 'LC1' and infCount == 2:
+        elif infInfo.infraction == 'SD1' and infCount == 2:
             body = """
                     *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
     
@@ -265,16 +329,45 @@ def emailAutomation(list):
                 recipient_list=email,
                 fail_silently=False
             )
-        elif infInfo.infraction == 'LC1' and infCount >= 3:
+        elif infInfo.infraction == 'SD1' and infCount >= 3:
+            body = """
+                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                    Hello {name},
+
+                    Our records indicate that you changed your court reservation from singles to doubles on {date} at {time}.
+
+                    As this is your third occurrence, this court booking Singles-to-Doubles will be reviewed by our Director of Athletics.
+                    Further infractions will be reviewed by our Sports and Activity Committee, leading to a potential suspension of
+                    booking privileges.  You will notice a $10 charge on your account
+
+                    This is just a friendly reminder of our rules :
+
+                        15.2    Changing Singles to Doubles
+                        “Same Day” Singles to Doubles switching will result in a $10/Member charge for all players 
+                        on the court.
+
+                    This is all in an effort to provide fair and equitable access to our tennis courts for all our Members.
+
+                    Thank you for your understanding,
+
+                    Jonathan Young | Sports Administrator
+                    The Badminton and Racquet Club of Toronto
+                    25 St. Clair Avenue West, Toronto ON M4V 1K6
+                    E jonathan@thebandr.com W thebandr.com
+
+                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+
+                        """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles (Over 2 Offenses)',
-                message='test',
+                message=body,
                 from_email=None,
                 # TODO Place 'staffList' under recipientlist
                 recipient_list=email,
                 fail_silently=False
             )
-        elif infInfo.infraction == 'GN':
+        elif infInfo.infraction == 'GN1':
             body = """
                 *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
 
@@ -313,7 +406,7 @@ def emailAutomation(list):
             )
         else:
             send_mail(
-                subject='B&R Court Booking Infraction - Guest Name',
+                subject='B&R Court Booking Infraction - Test',
                 message='test',
                 from_email=None,
                 recipient_list=email,

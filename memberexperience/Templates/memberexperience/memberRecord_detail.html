@@ -16,11 +16,13 @@
           <!-- Sets it so the only people who can update or delete posts is the user who created the post -->
               <p class="article-content">
                   Join Date - {{ object.joinDate }}
-                  3 Mth Follow-Up - {{ object.followUp1 }}
-                  6 Mth Follow-Up - {{ object.followUp2 }}
-                  1 Yr Follow-Up - {{ object.followUp3 }}
+                  Follow Up Date (3 Months) - {{ object.followUp1 }}
+                  Follow Up Date (6 Months) - {{ object.followUp2 }}
+                  Follow Up Date (1 Year) - {{ object.followUp3 }}
               </p>
               <p>
+                  <b>Sport Preferences</b>
+                  <br>
                   {% for sport in object.sportPrefs.all %}
                     {{ sport }}<br>
                   {% endfor %}
