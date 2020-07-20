@@ -32,7 +32,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     #'login/' is the name of the url in the browser, 'auth_views' is the views.py imported from
     #'django.contrib.auth', and 'LoginView.as_view()' is a class of that views.py
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     #'as_view(templatename='users/login.html')' redirects Django to look in that directory instead
     #of the default 'register/login.html'
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),

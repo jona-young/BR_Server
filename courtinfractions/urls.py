@@ -21,7 +21,6 @@ urlpatterns = [
     path('record/new/', CICreateView.as_view(), name='CI-new'),
     path('record/<int:pk>/update', CIUpdateView.as_view(), name='CI-update'),
     path('record/<int:pk>/delete', CIDeleteView.as_view(), name='CI-delete'),
-    path('record/multinew/', views.CIFormsetView, name='CI-multinew'),
+    #path('record/multinew/', views.CIFormsetView, name='CI-multinew'),
     path('email/', views.CIEmailFormView, name='CI-email'),
-    #path('email/', CIEmailFormView.as_view(), name='CI-email')
 ]

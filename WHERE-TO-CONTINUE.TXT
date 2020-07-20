@@ -8,11 +8,9 @@ jonayoung
 Sportsadmin#1
 
 TODO Court Infractions Application
-1) Add Search Bar for Member
-2) Add Date Range filter in Summary
+
 3) Add Date Range filter in Email Automation
 TODO Member Experience Application
-1) Add Search Bar for Member
 
 TODO SECURITY
 1) Add CSRF token to all forms

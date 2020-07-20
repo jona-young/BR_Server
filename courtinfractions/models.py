@@ -67,7 +67,10 @@ class courtInf(models.Model):
     ]
 
     #Drop down list would switch name to ForeignKey link with contactInfo model 'name'
-    sport = models.CharField(max_length=2, choices=[('TN', 'Tennis'), ('SQ', 'Squash')])
+    sport = models.CharField(max_length=2, choices=[
+        ('TN', 'Tennis'), ('SQ', 'Squash'), ('BM', 'Badminton'),
+        ('PB', 'Pickleball'), ('PT', 'Platform Tennis')
+        ])
     name = models.ForeignKey(contactInfo, on_delete=models.PROTECT)
     infraction = models.CharField(max_length=3, choices=codeInf)
     date = models.DateField(default=timezone.now)

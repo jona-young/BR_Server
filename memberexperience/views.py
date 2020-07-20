@@ -12,7 +12,7 @@ import datetime
 from .models import memberRecord
 from .forms import createForm
 
-class MEListView(ListView):
+class MEListView(LoginRequiredMixin, ListView):
     model = memberRecord
     template_name = 'memberexperience/memberRecord_summary.html'
     context_object_name = 'objects'
@@ -48,7 +48,7 @@ class MEListView(ListView):
                 return memberRecord.objects.filter(joinDate__month=month,
                                                    joinDate__year=year).order_by('-joinDate').all()
 
-class MEDetailView(DetailView):
+class MEDetailView(LoginRequiredMixin, DetailView):
     model = memberRecord
 
 class MEUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

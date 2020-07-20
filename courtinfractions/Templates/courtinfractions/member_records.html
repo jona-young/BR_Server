@@ -8,7 +8,7 @@
         <article class="media content-section">
           <div class="media-body">
             <h5><a class="article-content" href="{% url 'CI-record' record.id %}">{{ record.name }}</a></h5>
-            <p>{{ record.infraction }}</p>
+            <p>{{ record.infraction.0 }}{{ record.infraction.1 }}</p>
             <p class="article-content">{{ record.date }} at {{ record.courtTime }}</p>
             <p class="article-content">{{ record.notes }}</p>
           </div>
