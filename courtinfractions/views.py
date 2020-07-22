@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -117,10 +118,6 @@ class CIDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 @login_required
 def CIEmailFormView(request):
-    month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September', 'October', 'November', 'December']
-    year_list = list(range(courtInf.objects.earliest('date').date.year,
-                           (courtInf.objects.latest('date').date.year)+1))
     context = {}
 
     if request.method == 'POST':
@@ -132,28 +129,22 @@ def CIEmailFormView(request):
             emailAutomation(checkList)
         return redirect('CI-summary')
 
-    #pulls selected month and year and queries objects in model of that month and year
-    if request.method == 'GET':
-        print('A date query has been entered')
-        month = request.GET.get('month')
-        year = request.GET.get('year')
-        print('month: ', str(month))
-        print('year: ', str(year))
-        #TODO: Figure out how to pass filtered objects to multipleForm() because
-        #TODO: that is the form and where the data is pulled from
-        if month is None or year is None:
-            print('Month or Year is None')
-        else:
-            filter_obj = courtInf.objects.filter(date__month=month,
-                                                 date__year=year).order_by('-date').all()
-            print(filter_obj)
-            return request_context.push({'selectForm': filter_obj})
+    #If the date is Monday all court infraction objects pulled from the past week
+    if datetime.date.today().weekday() == 0:
+        beg_date = (datetime.date.today() + datetime.timedelta(days=-7)).strftime('%b %d')
+        end_date = datetime.datetime.today().strftime('%b %d')
 
+    #If the date is not Monday, all court infractions still pulled from past week starting Monday
+    else:
+        day_mod = datetime.date.today().weekday()
+
+        beg_date = (datetime.datetime.today() + datetime.timedelta(days=-(7+day_mod))).strftime('%b %d')
+        end_date = (datetime.datetime.today() + datetime.timedelta(days=-day_mod)).strftime('%b %d')
 
     context = {
         'selectForm': multipleForm(),
-        'month_list': month_list,
-        'year_list': year_list
+        'beg_date': beg_date,
+        'end_date': end_date,
     }
 
     return render(request, 'courtinfractions/courtInf_emailselect.html', context)

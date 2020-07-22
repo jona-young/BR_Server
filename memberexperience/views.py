@@ -16,7 +16,6 @@ class MEListView(LoginRequiredMixin, ListView):
     model = memberRecord
     template_name = 'memberexperience/memberRecord_summary.html'
     context_object_name = 'objects'
-    ordering = '-id'
     paginate_by = 10
 
     month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
@@ -43,10 +42,10 @@ class MEListView(LoginRequiredMixin, ListView):
             print('month: ', str(month))
             print('year: ', str(year))
             if month is None or year is None:
-                return memberRecord.objects.order_by('-joinDate').all()
+                return memberRecord.objects.order_by('-joinDate').all().order_by('-id')
             else:
                 return memberRecord.objects.filter(joinDate__month=month,
-                                                   joinDate__year=year).order_by('-joinDate').all()
+                                                   joinDate__year=year).order_by('-id').all()
 
 class MEDetailView(LoginRequiredMixin, DetailView):
     model = memberRecord

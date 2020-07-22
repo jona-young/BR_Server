@@ -3,41 +3,12 @@
 
 {% block content %}
         <div class="content-section">
-            <div>
-            <form class="well contact-form" method='GET'>
-                {% csrf_token %}
-                <div style="float:left;">
-                    Month:
-                    <select class="well form-control" name="month">
-                        {% for month in month_list %}
-                            <option value="{{ forloop.counter }}">{{ month }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div style="float:left; margin-left:3%;">
-                    Year
-                    <select class="well form-control" name="year">
-                        {% for year in year_list %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div style="float:left; margin-left:3%;">
-                    <br>
-                    <button type="submit" class="btn btn-default">Go!</button>
-                </div>
-                <div style="float:left; margin-left:3%;">
-                    <br>
-                    <a href="{% url 'CI-email' %}" class="btn btn-warning">Reset!</a>
-                </div>
-                <div style="clear:both;"></div>
-            </form>
-            </div>
-            <br>
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Court Infraction Email Select</legend>
+                    <legend class="border-bottom mb-4">Weekly Court Infraction Emails ({{ beg_date }} to {{ end_date }})</legend>
+                    <i>Please select the court infraction records below and click 'Submit' to send automated emails to members.</i>
+                    <br><br>
                     {{ selectForm|crispy }}
                 </fieldset>
                 <div class="form-group">
