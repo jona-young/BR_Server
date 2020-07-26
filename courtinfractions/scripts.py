@@ -1,15 +1,12 @@
 from .models import courtInf, contactInfo
 from django.core.mail import send_mail
+from BR_Server import secrets
+
+email = secrets.memberStaff
+staffList = secrets.staffList
 
 #TODO - adjust email var in each sendmail() to infInfo and contactInfo email...
 
-staffList = [
-    'eric@thebandr.com',
-    'catherine@thebandr.com',
-    'kira@thebandr.com',
-    'tom@thebandr.com',
-    'jonathan@thebandr.com',
-]
 
 def emailAutomation(list):
     for pk in list:
@@ -18,11 +15,10 @@ def emailAutomation(list):
         contact = contactInfo.objects.get(pk=infInfo.name_id)
         # TODO - fill this into the recipient list but for now, leave blank
         #email = contact.email
-        email = ['jonathanster.young@me.com']
 
         if infInfo.infraction == 'NS1' and infCount == 1:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
                 
                 Hello {name},
 
@@ -45,14 +41,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
                 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
                 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show',
                 message=body,
@@ -62,7 +57,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'NS1' and infCount == 2:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -86,14 +81,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show (2nd Offense)',
                 message=body,
@@ -103,7 +97,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'NS1' and infCount >= 3:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -127,14 +121,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show (Over 2 Offenses)',
                 message=body,
@@ -145,7 +138,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction =='LC1' and infCount == 1:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -164,14 +157,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel',
                 message=body,
@@ -181,7 +173,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'LC1' and infCount == 2:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -201,14 +193,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel (2nd Offense)',
                 message=body,
@@ -218,7 +209,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'LC1' and infCount >= 3:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -238,14 +229,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel (Over 2 Offenses)',
                 message=body,
@@ -256,7 +246,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'SD1' and infCount == 1:
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -277,14 +267,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles',
                 message=body,
@@ -294,7 +283,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'SD1' and infCount == 2:
             body = """
-                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                    *This is an automated email.  If you have questions or concerns, please forward them to {email}*
     
                     Hello {name},
     
@@ -314,14 +303,13 @@ def emailAutomation(list):
     
                     Thank you for your understanding,
     
-                    Jonathan Young | Sports Administrator
-                    The Badminton and Racquet Club of Toronto
-                    25 St. Clair Avenue West, Toronto ON M4V 1K6
-                    E jonathan@thebandr.com W thebandr.com
-    
-                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-    
-                        """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    {s1}
+                    {s2}
+                    {s3}
+                    {s4}
+        
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles (2nd Offense)',
                 message=body,
@@ -331,7 +319,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'SD1' and infCount >= 3:
             body = """
-                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                    *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                     Hello {name},
 
@@ -351,14 +339,13 @@ def emailAutomation(list):
 
                     Thank you for your understanding,
 
-                    Jonathan Young | Sports Administrator
-                    The Badminton and Racquet Club of Toronto
-                    25 St. Clair Avenue West, Toronto ON M4V 1K6
-                    E jonathan@thebandr.com W thebandr.com
+                    {s1}
+                    {s2}
+                    {s3}
+                    {s4}
 
-                    *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                        """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles (Over 2 Offenses)',
                 message=body,
@@ -369,7 +356,7 @@ def emailAutomation(list):
             )
         elif infInfo.infraction == 'GN1':
             body = """
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
+                *This is an automated email.  If you have questions or concerns, please forward them to {email}*
 
                 Hello {name},
 
@@ -389,14 +376,13 @@ def emailAutomation(list):
 
                 Thank you for your understanding,
 
-                Jonathan Young | Sports Administrator
-                The Badminton and Racquet Club of Toronto
-                25 St. Clair Avenue West, Toronto ON M4V 1K6
-                E jonathan@thebandr.com W thebandr.com
+                {s1}
+                {s2}
+                {s3}
+                {s4}
 
-                *This is an automated email.  If you have questions or concerns, please forward them to jonathan@thebandr.com*
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime)
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=email,
+                               s1=secrets.sig1, s2=secrets.sig2, s3=secrets.sig3, s4=secrets.sig4)
             send_mail(
                 subject='B&R Court Booking Infraction - Guest Name',
                 message=body,
