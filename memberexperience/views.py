@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -8,7 +7,6 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.decorators import login_required
-import datetime
 from .models import memberRecord
 from .forms import createForm
 
@@ -18,6 +16,7 @@ class MEListView(LoginRequiredMixin, ListView):
     context_object_name = 'objects'
     paginate_by = 10
 
+    #Values passed to the date filter
     month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                   'November', 'December']
     year_list = list(range(memberRecord.objects.earliest('joinDate').joinDate.year,
@@ -47,8 +46,10 @@ class MEListView(LoginRequiredMixin, ListView):
                 return memberRecord.objects.filter(joinDate__month=month,
                                                    joinDate__year=year).order_by('-id').all()
 
+
 class MEDetailView(LoginRequiredMixin, DetailView):
     model = memberRecord
+
 
 class MEUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = memberRecord
@@ -71,6 +72,7 @@ class MEUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
+
 class MEDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = memberRecord
     success_url = '/memberexperience/summary/'
@@ -80,6 +82,7 @@ class MEDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == record.author:
             return True
         return False
+
 
 @login_required
 def MECreateView(request):

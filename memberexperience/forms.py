@@ -1,12 +1,13 @@
-from django import forms
+from django.forms import ModelMultipleChoiceField
+from django.forms import CheckboxSelectMultiple
 from django.forms import ModelForm
 from .models import memberRecord, sportOptions
 
 class createForm(ModelForm):
-    sportPrefs = forms.ModelMultipleChoiceField(
+    sportPrefs = ModelMultipleChoiceField(
                 label='Sport Preferences',
                 queryset=sportOptions.objects.filter(),
-                widget=forms.CheckboxSelectMultiple
+                widget=CheckboxSelectMultiple
             )
 
     class Meta:

@@ -13,5 +13,4 @@ urlpatterns = [
     path('record/new/', views.MECreateView, name='ME-new'),
     path('record/<int:pk>/update', MEUpdateView.as_view(), name='ME-update'),
     path('record/<int:pk>/delete', MEDeleteView.as_view(), name='ME-delete'),
-
 ]

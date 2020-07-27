@@ -1,24 +1,24 @@
-import datetime
+from datetime import datetime as dt
+from datetime import date
+from collections import OrderedDict
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
+    ListView, DetailView, CreateView,
+    UpdateView, DeleteView,
 )
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
-from .models import courtInf
-from .forms import multipleForm
-from .scripts import emailAutomation
-from collections import OrderedDict
+from courtinfractions.models import courtInf
+from courtinfractions.forms import multipleForm
+from BR_Server.tasks import email_automation
+
 
 
 class CIMemberListView(LoginRequiredMixin, ListView):
     model = courtInf
-    template_name = 'courtinfractions/member_records.html' # <app>/<model>_<viewtype>.html
+    template_name = 'courtinfractions/member_records.html'
     context_object_name = 'records'
     paginate_by = 5
 
@@ -29,7 +29,7 @@ class CIMemberListView(LoginRequiredMixin, ListView):
 
 class CIDateListView(LoginRequiredMixin, ListView):
     model = courtInf
-    template_name = 'courtinfractions/date_records.html' # <app>/<model>_<viewtype>.html
+    template_name = 'courtinfractions/date_records.html'
     context_object_name = 'records'
     paginate_by = 5
 
@@ -49,10 +49,11 @@ class CIListView(LoginRequiredMixin, ListView):
     ordering = '-date_created'
     paginate_by=12
 
+    #Values passed to the date filter
     month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
     year_list = list(range(courtInf.objects.earliest('date').date.year,
-                           (courtInf.objects.latest('date').date.year)+1))
+                          (courtInf.objects.latest('date').date.year)+1))
 
     #passing month and year options to date search filter
     def get_context_data(self, **kwargs):
@@ -116,6 +117,7 @@ class CIDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
 @login_required
 def CIEmailFormView(request):
     context = {}
@@ -125,21 +127,21 @@ def CIEmailFormView(request):
         if forms.is_valid():
             #pulls selected records/objects to carry on with email automation
             checkList = request.POST.getlist('Choices')
-            #calls a function script to email selected choices
-            emailAutomation(checkList)
+            #passes email automation to celery
+            email_automation.delay(checkList)
         return redirect('CI-summary')
 
     #If the date is Monday all court infraction objects pulled from the past week
-    if datetime.date.today().weekday() == 0:
-        beg_date = (datetime.date.today() + datetime.timedelta(days=-7)).strftime('%b %d')
-        end_date = datetime.datetime.today().strftime('%b %d')
+    if date.today().weekday() == 0:
+        beg_date = (date.today() + dt.timedelta(days=-7)).strftime('%b %d')
+        end_date = dt.today().strftime('%b %d')
 
     #If the date is not Monday, all court infractions still pulled from past week starting Monday
     else:
-        day_mod = datetime.date.today().weekday()
+        day_mod = date.today().weekday()
 
-        beg_date = (datetime.datetime.today() + datetime.timedelta(days=-(7+day_mod))).strftime('%b %d')
-        end_date = (datetime.datetime.today() + datetime.timedelta(days=-day_mod)).strftime('%b %d')
+        beg_date = (dt.today() + dt.timedelta(days=-(7+day_mod))).strftime('%b %d')
+        end_date = (dt.today() + dt.timedelta(days=-day_mod)).strftime('%b %d')
 
     context = {
         'selectForm': multipleForm(),
@@ -156,19 +158,14 @@ def CITableView(request):
     context = {}
     dict = {}
 
+    #Filters the table based off the first name and the letter selected in the filter
     if request.method == 'GET':
         print('A name filter has been entered')
         letter = request.GET.get('alphabet')
-        #alphabet_letter = request.GET.get('alphabet')
-        #letter = alphabet_list[alphabet_letter]
         if letter is None:
-            print('no letter: ', str(letter))
             infractions = courtInf.objects.order_by('-date').all()
-            print('Letter is none: ', infractions)
         else:
-            print('some letter: ', str(letter))
             infractions = courtInf.objects.filter(name__memberName__startswith=letter).order_by('name').all()
-            print('Letter is something', infractions)
 
     #counts number of infractions per member name
     for inf in infractions:
@@ -176,16 +173,17 @@ def CITableView(request):
             dict[inf.name] += 1
         else:
             dict[inf.name] = 1
-    sortedDict = OrderedDict(sorted(dict.items(), key=lambda x: x[1], reverse=True))
 
+    sortedDict = OrderedDict(sorted(dict.items(), key=lambda x: x[1], reverse=True))
     context['table']=sortedDict.items()
     context = {
         'table': sortedDict.items(),
         'alphabet_list': alphabet_list
     }
+
     return render(request, 'courtinfractions/courtInf_table.html', context)
 
-#Multi-Form Create page
+#Currently not active...Multi-Form Create page
 @login_required
 def CIFormsetView(request):
     context = {}

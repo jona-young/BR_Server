@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
-
 import os
 from celery import Celery
+from celery.schedules import crontab
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BR_Server.settings')
@@ -13,6 +13,16 @@ app = Celery('BR_Server')
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
+app.conf.timezone = 'America/Montreal'
+
+#Runs the script to identify new members follow-up dates and sends emails
+#to staff to follow-up with those members
+app.conf.beat_schedule = {
+    'member-check-everyday': {
+        'task':'BR_Server.tasks.member_email',
+        'schedule': crontab(hour=20, minute=57),
+    }
+}
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
