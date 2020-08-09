@@ -26,24 +26,11 @@ Celery command to stop worker on Mac OS
 
 Celery command to start a beat schedule node
     celery -A BR_Server beat
-
-Progress - Figured out how to setup a local Rabbitmq server,
-           setup celery configuration (celeryapp.py, tasks.py,
-           settings.py), and tested tasks through Python Shell
-
-Up Next - Turn the member_email function into a Periodic Task
-          function..ideally occuring at the beginning of the day
-          but you can use as a test for shorter intervals as well
 '''
 
 member_staff = secrets.member_staff
 staff_list = secrets.staff_list
 
-@c_app.task
-def test(arg):
-    print(arg)
-
-# Works if I run it from shell
 @c_app.task
 def member_email():
     threeMth = memberRecord.objects.filter(followUp1=datetime.datetime.today())

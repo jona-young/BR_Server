@@ -20,7 +20,7 @@ app.conf.timezone = 'America/Montreal'
 app.conf.beat_schedule = {
     'member-check-everyday': {
         'task':'BR_Server.tasks.member_email',
-        'schedule': crontab(hour=20, minute=57),
+        'schedule': crontab(hour=6, minute=0),
     }
 }
 
