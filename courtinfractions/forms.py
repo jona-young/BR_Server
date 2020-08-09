@@ -1,8 +1,10 @@
+from django import forms
 from django.forms import ModelMultipleChoiceField
 from django.forms import CheckboxSelectMultiple
 from courtinfractions.models import courtInf
-from datetime import datetime as dt
+from datetime import datetime as dt2
 from datetime import date
+import datetime as dt1
 
 class multipleForm(forms.Form):
     class Meta:
@@ -13,11 +15,11 @@ class multipleForm(forms.Form):
     if date.today().weekday() == 0:
         Choices = ModelMultipleChoiceField(widget=CheckboxSelectMultiple,
                                            queryset=courtInf.objects.filter(
-                                               date__range=[(dt.today() + dt.timedelta(days=-7)), dt.today()]))
+                                               date__range=[(dt2.today() + dt1.timedelta(days=-7)), dt2.today()]))
     #If the date is not Monday, all court infractions still pulled from past week starting Monday
     else:
         day_mod = date.today().weekday()
         Choices = ModelMultipleChoiceField(widget=CheckboxSelectMultiple,
                                            queryset=courtInf.objects.filter(
-                                               date__range=[(dt.today() + dt.timedelta(days=-(7+day_mod))),
-                                                            (dt.today() + dt.timedelta(days=-day_mod))]))
+                                               date__range=[(dt2.today() + dt1.timedelta(days=-(7+day_mod))),
+                                                            (dt2.today() + dt1.timedelta(days=-day_mod))]))

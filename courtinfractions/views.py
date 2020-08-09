@@ -1,4 +1,5 @@
-from datetime import datetime as dt
+import datetime as dt1
+from datetime import datetime as dt2
 from datetime import date
 from collections import OrderedDict
 from django.shortcuts import render, redirect
@@ -133,15 +134,15 @@ def CIEmailFormView(request):
 
     #If the date is Monday all court infraction objects pulled from the past week
     if date.today().weekday() == 0:
-        beg_date = (date.today() + dt.timedelta(days=-7)).strftime('%b %d')
-        end_date = dt.today().strftime('%b %d')
+        beg_date = (date.today() + dt1.timedelta(days=-7)).strftime('%b %d')
+        end_date = dt2.today().strftime('%b %d')
 
     #If the date is not Monday, all court infractions still pulled from past week starting Monday
     else:
         day_mod = date.today().weekday()
 
-        beg_date = (dt.today() + dt.timedelta(days=-(7+day_mod))).strftime('%b %d')
-        end_date = (dt.today() + dt.timedelta(days=-day_mod)).strftime('%b %d')
+        beg_date = (dt2.today() + dt1.timedelta(days=-(7+day_mod))).strftime('%b %d')
+        end_date = (dt2.today() + dt1.timedelta(days=-day_mod)).strftime('%b %d')
 
     context = {
         'selectForm': multipleForm(),
