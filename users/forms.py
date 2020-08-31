@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
+
 #Adjusts the UserCreationForm to add an email input in the registration form
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

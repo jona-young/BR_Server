@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class contactInfo(models.Model):
     memberName = models.CharField(max_length=200)
     email = models.CharField(max_length=254)
-    #TODO: memberNum = models.CharField(max_length=5)
+
     def __str__(self):
         return self.memberName
 

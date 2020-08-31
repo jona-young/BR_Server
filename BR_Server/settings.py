@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -153,3 +154,13 @@ SERVER_EMAIL = secrets.email_account
 
 #Celery
 CELERY_IMPORTS = ['BR_Server.tasks']
+
+AWS_ACCESS_KEY_ID = secrets.aws_accesskey
+AWS_SECRET_ACCESS_KEY = secrets.aws_secretkey
+AWS_STORAGE_BUCKET_NAME = secrets.aws_bucketname
+
+AWS_S3_FILES_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

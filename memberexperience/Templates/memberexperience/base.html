@@ -13,16 +13,15 @@
 <body>
     <!--Navigation Bar-->
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div class="container">
-          <p class="navbar-brand mr-4">B&R Sports Server</p>
+            <a class="navbar-brand mr-4" href="{% url 'ME-summary' %}">B&R Member Experience Records</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <!-- Place Header links here -->
-              <a class="nav-item nav-link" href="{% url 'ME-summary' %}">Member Experience Records</a>
               <a class="nav-item nav-link" href="{% url 'CI-summary' %}">Court Infractions Records</a>
 
             </div>
@@ -58,13 +57,12 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Member Sidebar</h3>
-            <p class='text-muted'>Links to navigate around the website quickly.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">
-                     <a href="{% url 'ME-summary' %}">Member Records</a>
-                </li>
-              </ul>
+            <h3>Automated Emails</h3>
+            <p class='text-muted'>
+                The B&R Server uses the celery package as a task scheduler to
+                email staff reminders to follow-up with members.
+                <br><br>
+                Can be adapted to send emails directly to members as well.
             </p>
           </div>
         </div>
