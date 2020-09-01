@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 import os
 import datetime
-from . import secrets
 from celery import shared_task
 from memberexperience.models import memberRecord
 from courtinfractions.models import courtInf, contactInfo
@@ -29,7 +28,7 @@ Celery command to start a beat schedule node
     celery -A BR_Server beat
 '''
 
-member_staff = secrets.member_staff
+member_staff = os.environ.get('member_staff')
 
 @c_app.task
 def member_email():
@@ -110,13 +109,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show',
                 message=body,
@@ -149,14 +144,10 @@ def email_automation(list):
                 This is all in an effort to provide fair and equitable access to our tennis courts for all our Members.
 
                 Thank you for your understanding,
+                
+                Jonathan
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
-
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show (2nd Offense)',
                 message=body,
@@ -190,13 +181,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - No Show (Over 2 Offenses)',
                 message=body,
@@ -225,13 +212,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel',
                 message=body,
@@ -261,13 +244,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel (2nd Offense)',
                 message=body,
@@ -297,13 +276,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Late Cancel (Over 2 Offenses)',
                 message=body,
@@ -334,13 +309,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles',
                 message=body,
@@ -370,13 +341,9 @@ def email_automation(list):
 
                     Thank you for your understanding,
 
-                    {s1}
-                    {s2}
-                    {s3}
-                    {s4}
+                    Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles (2nd Offense)',
                 message=body,
@@ -406,13 +373,9 @@ def email_automation(list):
 
                     Thank you for your understanding,
 
-                    {s1}
-                    {s2}
-                    {s3}
-                    {s4}
+                    Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Singles to Doubles (Over 2 Offenses)',
                 message=body,
@@ -442,13 +405,9 @@ def email_automation(list):
 
                 Thank you for your understanding,
 
-                {s1}
-                {s2}
-                {s3}
-                {s4}
+                Jonathan
 
-                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff,
-                               s1=os.environ['sig1'], s2=os.environ['sig2'], s3=os.environ['sig3'], s4=os.environ['sig4'])
+                    """.format(name=infInfo.name, date=infInfo.date, time=infInfo.courtTime, email=member_staff)
             send_mail(
                 subject='B&R Court Booking Infraction - Guest Name',
                 message=body,

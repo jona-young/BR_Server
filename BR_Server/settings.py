@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from . import secrets
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets.django_key
+SECRET_KEY = os.environ.get('django_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,17 +146,17 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #CHANGE THIS TO ENVIRONMENT VARIABLE...SEARCH FOR TUTORIAL
-EMAIL_HOST_USER = secrets.email_account
-EMAIL_HOST_PASSWORD = secrets.email_password
+EMAIL_HOST_USER = os.environ.get('email_account')
+EMAIL_HOST_PASSWORD = os.environ.get('email_password')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 
 #Celery
 CELERY_IMPORTS = ['BR_Server.tasks']
 
-AWS_ACCESS_KEY_ID = secrets.aws_accesskey
-AWS_SECRET_ACCESS_KEY = secrets.aws_secretkey
-AWS_STORAGE_BUCKET_NAME = secrets.aws_bucketname
+AWS_ACCESS_KEY_ID = os.environ.get('aws_accesskey')
+AWS_SECRET_ACCESS_KEY = os.environ.get('aws_secretkey')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('aws_bucketname')
 
 AWS_S3_FILES_OVERWRITE = False
 AWS_DEFAULT_ACL = None
