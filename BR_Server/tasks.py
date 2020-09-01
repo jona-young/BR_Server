@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+import os
 import datetime
 from celery import shared_task
 from memberexperience.models import memberRecord
@@ -28,8 +29,7 @@ Celery command to start a beat schedule node
     celery -A BR_Server beat
 '''
 
-member_staff = secrets.member_staff
-staff_list = secrets.staff_list
+member_staff = os.environ.get('member_staff')
 
 @c_app.task
 def member_email():
@@ -201,7 +201,6 @@ def email_automation(list):
                 subject='B&R Court Booking Infraction - No Show (Over 2 Offenses)',
                 message=body,
                 from_email=None,
-                # TODO Place 'staff_list' under recipientlist
                 recipient_list=member_staff,
                 fail_silently=False
             )
@@ -309,7 +308,6 @@ def email_automation(list):
                 subject='B&R Court Booking Infraction - Late Cancel (Over 2 Offenses)',
                 message=body,
                 from_email=None,
-                # TODO Place 'staff_list' under recipientlist
                 recipient_list=member_staff,
                 fail_silently=False
             )
@@ -419,7 +417,6 @@ def email_automation(list):
                 subject='B&R Court Booking Infraction - Singles to Doubles (Over 2 Offenses)',
                 message=body,
                 from_email=None,
-                # TODO Place 'staff_list' under recipientlist
                 recipient_list=member_staff,
                 fail_silently=False
             )
