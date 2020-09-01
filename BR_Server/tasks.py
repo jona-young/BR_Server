@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 import os
 import datetime
+from . import secrets
 from celery import shared_task
 from memberexperience.models import memberRecord
 from courtinfractions.models import courtInf, contactInfo
@@ -28,7 +29,7 @@ Celery command to start a beat schedule node
     celery -A BR_Server beat
 '''
 
-member_staff = os.environ['member_staff']
+member_staff = secrets.member_staff
 
 @c_app.task
 def member_email():
