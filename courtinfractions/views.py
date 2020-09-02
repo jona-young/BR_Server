@@ -53,15 +53,15 @@ class CIListView(LoginRequiredMixin, ListView):
     #Values passed to the date filter
     month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
-    year_list = list(range(courtInf.objects.earliest('date').date.year,
-                          (courtInf.objects.latest('date').date.year)+1))
+    #year_list = list(range(courtInf.objects.earliest('date').date.year,
+                          #(courtInf.objects.latest('date').date.year)+1))
 
     #passing month and year options to date search filter
     def get_context_data(self, **kwargs):
         context = super(CIListView, self).get_context_data(**kwargs)
         context.update({
             'month_list': self.month_list,
-            'year_list': self.year_list
+            #'year_list': self.year_list
         })
         return context
 

@@ -27,7 +27,7 @@ class MEListView(LoginRequiredMixin, ListView):
         context = super(MEListView, self).get_context_data(**kwargs)
         context.update({
             'month_list': self.month_list,
-            #'year_list': self.year_list
+            #3'year_list': self.year_list
         })
 
         return context
