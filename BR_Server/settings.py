@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -31,12 +30,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #Calls the 'courtinfractions' application directory, navigates to the 'apps.py' file within the application directory
-    #and calls the CourtInfractionsConfig class from the 'apps.py' file
     'users.apps.UsersConfig',
     'courtinfractions.apps.CourtinfractionsConfig',
     'memberexperience.apps.MemberexperienceConfig',
-    #Tells Django that we want to use crispy_forms to style out forms
     'crispy_forms',
     'betterforms',
     'django.contrib.admin',
