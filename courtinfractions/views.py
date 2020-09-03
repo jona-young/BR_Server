@@ -40,6 +40,8 @@ class CIDateListView(LoginRequiredMixin, ListView):
 
 class CIDetailView(LoginRequiredMixin, DetailView):
     model = courtInf
+    template_name = 'courtinfractions/courtInf_detail.html'
+
 
 
 class CIListView(LoginRequiredMixin, ListView):
@@ -111,6 +113,8 @@ class CIUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class CIDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = courtInf
     success_url = '/courtinfractions/summary/'
+    template_name = 'courtinfractions/courtInf_confirm_delete.html'
+
 
     def test_func(self):
         record = self.get_object()
@@ -150,7 +154,7 @@ def CIEmailFormView(request):
         'end_date': end_date,
     }
 
-    return render(request, 'courtinfractions/courtinf_emailselect.html', context)
+    return render(request, 'courtinfractions/courtInf_emailselect.html', context)
 
 
 @login_required
@@ -183,7 +187,7 @@ def CITableView(request):
         'alphabet_list': alphabet_list
     }
 
-    return render(request, 'courtinfractions/courtinf_table.html', context)
+    return render(request, 'courtinfractions/courtInf_table.html', context)
 
 
 # Currently not active...Multi-Form Create page
@@ -206,4 +210,4 @@ def CIFormsetView(request):
         return redirect('CI-summary')
 
     context['formset'] = formset
-    return render(request, 'courtinfractions/courtinf_multiform.html', context)
+    return render(request, 'courtinfractions/courtInf_multiform.html', context)
