@@ -50,8 +50,7 @@
         <th scope="row">{{ record.id }}</th>
         <td><a class="article-content" href="{% url 'CI-record' record.id %}">{{ record.name }}</a></td>
         <td>{{ record.infraction.0 }}{{ record.infraction.1 }}</td>
-        <td><a class="article-content" href="{% url 'CI-date' record.date %}">{{ record.date }} @ {{ record.courtTime
-            }}</a></td>
+        <td><a class="article-content" href="{% url 'CI-date' record.date %}">{{ record.date }} @ {{ record.courtTime }}</a></td>
 
     </tr>
     {% endfor %}
