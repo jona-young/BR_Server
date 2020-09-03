@@ -12,7 +12,7 @@ from .forms import createForm
 
 class MEListView(LoginRequiredMixin, ListView):
     model = memberRecord
-    template_name = 'memberexperience/memberRecord_summary.html'
+    template_name = 'memberexperience/memberrecord_summary.html'
     context_object_name = 'objects'
     paginate_by = 10
 
@@ -54,7 +54,7 @@ class MEDetailView(LoginRequiredMixin, DetailView):
 class MEUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = memberRecord
     form_class = createForm
-    template_name = 'memberexperience/memberRecord_update.html'
+    template_name = 'memberexperience/memberrecord_update.html'
 
     #updates the form including many-to-many sportPrefs with save_m2m()
     def form_valid(self, form):
@@ -102,4 +102,4 @@ def MECreateView(request):
             return redirect('ME-summary')
 
     context['create']=create
-    return render(request, 'memberexperience/memberRecord_form.html', context)
+    return render(request, 'memberexperience/memberrecord_form.html', context)

@@ -150,7 +150,7 @@ def CIEmailFormView(request):
         'end_date': end_date,
     }
 
-    return render(request, 'courtinfractions/courtInf_emailselect.html', context)
+    return render(request, 'courtinfractions/courtinf_emailselect.html', context)
 
 @login_required
 def CITableView(request):
@@ -182,7 +182,7 @@ def CITableView(request):
         'alphabet_list': alphabet_list
     }
 
-    return render(request, 'courtinfractions/courtInf_table.html', context)
+    return render(request, 'courtinfractions/courtinf_table.html', context)
 
 #Currently not active...Multi-Form Create page
 @login_required
@@ -204,4 +204,4 @@ def CIFormsetView(request):
         return redirect('CI-summary')
 
     context['formset']=formset
-    return render(request, 'courtinfractions/courtInf_multiform.html', context)
+    return render(request, 'courtinfractions/courtinf_multiform.html', context)
