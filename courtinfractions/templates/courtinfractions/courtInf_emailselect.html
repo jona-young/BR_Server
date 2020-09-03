@@ -2,18 +2,22 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-        <div class="content-section">
-            <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Weekly Court Infraction Emails ({{ beg_date }} to {{ end_date }})</legend>
-                    <i>Please select the court infraction records below and click 'Submit' to send automated emails to members.</i>
-                    <br><br>
-                    {{ selectForm|crispy }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit" onclick="return confirm('Please confirm before sending these court infraction emails.')">Submit</button>
-                </div>
-            </form>
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Weekly Court Infraction Emails ({{ beg_date }} to {{ end_date }})
+            </legend>
+            <i>Please select the court infraction records below and click 'Submit' to send automated emails to
+                members.</i>
+            <br><br>
+            {{ selectForm|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit"
+                    onclick="return confirm('Please confirm before sending these court infraction emails.')">Submit
+            </button>
         </div>
+    </form>
+</div>
 {% endblock content %}}

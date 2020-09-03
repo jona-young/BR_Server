@@ -2,19 +2,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Court Infraction Entry</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit" name="single">Submit</button>
-                <button class="btn btn-outline-info" type="submit" name="multi">Submit & Create New Entry</button>
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Court Infraction Entry</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit" name="single">Submit</button>
+            <button class="btn btn-outline-info" type="submit" name="multi">Submit & Create New Entry</button>
 
-            </div>
-        </form>
+        </div>
+    </form>
 
-    </div>
+</div>
 {% endblock content %}}

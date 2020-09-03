@@ -3,71 +3,71 @@
 
 <!--Overrides the content block from base.html and allows the data for this specific page to be updated-->
 {% block content %}
-    <h2>Number of Infractions per Member</h2>
-    <div>
-        <form class="well contact-form" method='GET'>
-            <div style="float:left;">
-                Letter:
-                <select class="well form-control" name="alphabet">
-                    {% for letter in alphabet_list %}
-                        <option value="{{ letter }}">{{ letter }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div style="float:left; margin-left:3%;">
-                <br>
-                <button type="submit" class="btn btn-default">Go!</button>
-            </div>
-            <div style="float:left; margin-left:3%;">
-                <br>
-                <a href="{% url 'CI-table' %}" class="btn btn-warning">Reset!</a>
-            </div>
-            <div style="clear:both;"></div>
-        </form>
-    </div>
-    <br>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col"># of Infraction</th>
-            </tr>
-        </thead>
-        <tbody>
+<h2>Number of Infractions per Member</h2>
+<div>
+    <form class="well contact-form" method='GET'>
+        <div style="float:left;">
+            Letter:
+            <select class="well form-control" name="alphabet">
+                {% for letter in alphabet_list %}
+                <option value="{{ letter }}">{{ letter }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="float:left; margin-left:3%;">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </div>
+        <div style="float:left; margin-left:3%;">
+            <br>
+            <a href="{% url 'CI-table' %}" class="btn btn-warning">Reset!</a>
+        </div>
+        <div style="clear:both;"></div>
+    </form>
+</div>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col"># of Infraction</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for key, value in table %}
-        <tr>
-            <th scope="row">{{ forloop.counter }}{{ endfor }}</th>
-            <td><a class="article-content" href="{% url 'CI-member' key.id %}">{{ key }}</a></td>
-            <td>{{ value }}</td>
+    <tr>
+        <th scope="row">{{ forloop.counter }}{{ endfor }}</th>
+        <td><a class="article-content" href="{% url 'CI-member' key.id %}">{{ key }}</a></td>
+        <td>{{ value }}</td>
 
-        </tr>
+    </tr>
     {% endfor %}
 
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
 
-    <div class="mt-4">
-        {% if is_paginated %}
+<div class="mt-4">
+    {% if is_paginated %}
 
-            {% if page_obj.has_previous  %}
-                <a class = "btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            {% endif %}
+    {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <a class = "btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a class = "btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
 
-            {% if page_obj.has_next  %}
-                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            {% endif %}
-        {% endif %}
-        </div>
+    {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+    {% endif %}
+</div>
 {% endblock content %}
