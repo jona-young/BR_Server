@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+
 class contactInfo(models.Model):
     memberName = models.CharField(max_length=200)
     email = models.CharField(max_length=254)
@@ -12,15 +13,14 @@ class contactInfo(models.Model):
 
 
 class courtInf(models.Model):
-
-    codeInf=[
+    codeInf = [
         ('LC1', 'Late Cancel'),
         ('NS1', 'No Show'),
         ('SD1', 'Singles to Doubles'),
         ('GN1', 'Guest Name'),
         ('OTH', 'Other (Please specify in notes)'),
     ]
-    codeTime=[
+    codeTime = [
         ('5:40 AM', '5:40 AM'),
         ('6:00 AM', '6:00 AM'),
         ('6:20 AM', '6:20 AM'),
@@ -64,9 +64,9 @@ class courtInf(models.Model):
         ('9:00 PM', '9:00 PM'),
         ('9:30 PM', '9:30 PM'),
         ('9:40 PM', '9:40 PM'),
-        ]
+    ]
 
-    #Drop down list would switch name to ForeignKey link with contactInfo model 'name'
+    # Drop down list would switch name to ForeignKey link with contactInfo model 'name'
     name = models.ForeignKey(contactInfo, on_delete=models.PROTECT)
     sport = models.CharField(max_length=2, choices=[
         ('TN', 'Tennis'), ('SQ', 'Squash'), ('BM', 'Badminton'),
@@ -79,7 +79,7 @@ class courtInf(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
 
-    #Returns the infraction of a court infraction when it is called in the shell
+    # Returns the infraction of a court infraction when it is called in the shell
     def __str__(self):
         return '{}({}) on {} at {}'.format(self.name, self.infraction,
                                            self.date, self.courtTime)

@@ -7,7 +7,6 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -28,13 +27,31 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sport', models.CharField(max_length=10)),
-                ('infraction', models.CharField(choices=[('LC1', 'Late Cancel'), ('NS1', 'No Show'), ('SD1', 'Singles to Doubles'), ('GN1', 'Guest Name'), ('OTH', 'Other (Please specify in notes)')], max_length=3)),
+                ('infraction', models.CharField(
+                    choices=[('LC1', 'Late Cancel'), ('NS1', 'No Show'), ('SD1', 'Singles to Doubles'),
+                             ('GN1', 'Guest Name'), ('OTH', 'Other (Please specify in notes)')], max_length=3)),
                 ('date', models.DateField(default=django.utils.timezone.now)),
-                ('courtTime', models.CharField(choices=[('5:40 AM', '5:40 AM'), ('6:00 AM', '6:00 AM'), ('6:20 AM', '6:20 AM'), ('7:00 AM', '7:00 AM'), ('7:40 AM', '7:40 AM'), ('8:00 AM', '8:00 AM'), ('8:20 AM', '8:20 AM'), ('9:00 AM', '9:00 AM'), ('9:40 AM', '9:40 AM'), ('10:00 AM', '10:00 AM'), ('10:20 AM', '10:20 AM'), ('11:00 AM', '11:00 AM'), ('11:40 AM', '11:40 AM'), ('12:00 PM', '12:00 PM'), ('12:15 PM', '12:15 PM'), ('12:20 PM', '12:20 PM'), ('1:00 PM', '1:00 PM'), ('1:15 PM', '1:15 PM'), ('1:40 PM', '1:40 PM'), ('2:00 PM', '2:00 PM'), ('2:15 PM', '2:15 PM'), ('2:20 PM', '2:20 PM'), ('3:00 PM', '3:00 PM'), ('3:30 PM', '3:30 PM'), ('3:40 PM', '3:40 PM'), ('4:00 PM', '4:00 PM'), ('4:20 PM', '4:20 PM'), ('4:30 PM', '4:30 PM'), ('5:00 PM', '5:00 PM'), ('5:30 PM', '5:30 PM'), ('5:40 PM', '5:40 PM'), ('6:00 PM', '6:00 PM'), ('6:20 PM', '6:20 PM'), ('6:30 PM', '6:30 PM'), ('7:00 PM', '7:00 PM'), ('7:30 PM', '7:30 PM'), ('7:40 PM', '7:40 PM'), ('8:00 PM', '8:00 PM'), ('8:20 PM', '8:20 PM'), ('8:30 PM', '8:30 PM'), ('9:00 PM', '9:00 PM'), ('9:30 PM', '9:30 PM'), ('9:40 PM', '9:40 PM')], max_length=8)),
+                ('courtTime', models.CharField(
+                    choices=[('5:40 AM', '5:40 AM'), ('6:00 AM', '6:00 AM'), ('6:20 AM', '6:20 AM'),
+                             ('7:00 AM', '7:00 AM'), ('7:40 AM', '7:40 AM'), ('8:00 AM', '8:00 AM'),
+                             ('8:20 AM', '8:20 AM'), ('9:00 AM', '9:00 AM'), ('9:40 AM', '9:40 AM'),
+                             ('10:00 AM', '10:00 AM'), ('10:20 AM', '10:20 AM'), ('11:00 AM', '11:00 AM'),
+                             ('11:40 AM', '11:40 AM'), ('12:00 PM', '12:00 PM'), ('12:15 PM', '12:15 PM'),
+                             ('12:20 PM', '12:20 PM'), ('1:00 PM', '1:00 PM'), ('1:15 PM', '1:15 PM'),
+                             ('1:40 PM', '1:40 PM'), ('2:00 PM', '2:00 PM'), ('2:15 PM', '2:15 PM'),
+                             ('2:20 PM', '2:20 PM'), ('3:00 PM', '3:00 PM'), ('3:30 PM', '3:30 PM'),
+                             ('3:40 PM', '3:40 PM'), ('4:00 PM', '4:00 PM'), ('4:20 PM', '4:20 PM'),
+                             ('4:30 PM', '4:30 PM'), ('5:00 PM', '5:00 PM'), ('5:30 PM', '5:30 PM'),
+                             ('5:40 PM', '5:40 PM'), ('6:00 PM', '6:00 PM'), ('6:20 PM', '6:20 PM'),
+                             ('6:30 PM', '6:30 PM'), ('7:00 PM', '7:00 PM'), ('7:30 PM', '7:30 PM'),
+                             ('7:40 PM', '7:40 PM'), ('8:00 PM', '8:00 PM'), ('8:20 PM', '8:20 PM'),
+                             ('8:30 PM', '8:30 PM'), ('9:00 PM', '9:00 PM'), ('9:30 PM', '9:30 PM'),
+                             ('9:40 PM', '9:40 PM')], max_length=8)),
                 ('notes', models.TextField(blank=True)),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-                ('name', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='courtinfractions.contactinfo')),
+                ('name',
+                 models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='courtinfractions.contactinfo')),
             ],
         ),
     ]

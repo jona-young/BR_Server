@@ -9,7 +9,7 @@ from .views import (
     CIDateListView,
     CIEmailFormView
 )
-#The '.' represents the root file directory
+# The '.' represents the root file directory
 from . import views
 
 urlpatterns = [
@@ -21,6 +21,6 @@ urlpatterns = [
     path('record/new/', CICreateView.as_view(), name='CI-new'),
     path('record/<int:pk>/update', CIUpdateView.as_view(), name='CI-update'),
     path('record/<int:pk>/delete', CIDeleteView.as_view(), name='CI-delete'),
-    #path('record/multinew/', views.CIFormsetView, name='CI-multinew'),
+    # path('record/multinew/', views.CIFormsetView, name='CI-multinew'),
     path('email/', views.CIEmailFormView, name='CI-email'),
 ]

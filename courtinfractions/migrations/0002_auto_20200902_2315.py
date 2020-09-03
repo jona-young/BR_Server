@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('courtinfractions', '0001_initial'),
     ]
@@ -13,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='courtinf',
             name='sport',
-            field=models.CharField(choices=[('TN', 'Tennis'), ('SQ', 'Squash'), ('BM', 'Badminton'), ('PB', 'Pickleball'), ('PT', 'Platform Tennis')], max_length=2),
+            field=models.CharField(
+                choices=[('TN', 'Tennis'), ('SQ', 'Squash'), ('BM', 'Badminton'), ('PB', 'Pickleball'),
+                         ('PT', 'Platform Tennis')], max_length=2),
         ),
     ]
