@@ -19,15 +19,15 @@ class MEListView(LoginRequiredMixin, ListView):
     #Values passed to the date filter
     month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                   'November', 'December']
-    '''year_list = list(range(memberRecord.objects.earliest('joinDate').joinDate.year,
-                           (memberRecord.objects.latest('joinDate').joinDate.year)+1))'''
+    year_list = list(range(memberRecord.objects.earliest('joinDate').joinDate.year,
+                           (memberRecord.objects.latest('joinDate').joinDate.year)+1))
 
     #passing month and year options to date search filter
     def get_context_data(self, **kwargs):
         context = super(MEListView, self).get_context_data(**kwargs)
         context.update({
             'month_list': self.month_list,
-            #3'year_list': self.year_list
+            'year_list': self.year_list
         })
 
         return context
@@ -89,7 +89,7 @@ def MECreateView(request):
     context = {}
     create = createForm()
 
-    # updates the form including many-to-many sportPrefs with save_m2m()
+    # updates the form including many-to-many sportPrefs /..../with save_m2m()
     if request.method == 'POST':
         form = createForm(request.POST)
         if form.is_valid():

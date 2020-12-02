@@ -219,7 +219,7 @@ def email_automation(list):
                 subject='B&R Court Booking Infraction - Late Cancel',
                 message=body,
                 from_email=None,
-                recipient_list=member_staff,
+                recipient_list=(member_staff,),
                 fail_silently=False
             )
         elif infInfo.infraction == 'LC1' and infCount == 2:
